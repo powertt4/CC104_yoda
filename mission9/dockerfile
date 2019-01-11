@@ -1,0 +1,4 @@
+From jupyter/base-notebook
+MAINTAINER yoda(a0933841152@gmail.com)
+LABEL description="Build jupter-server image."
+RUN pip install PyMySQL
