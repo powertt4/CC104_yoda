@@ -1,0 +1,37 @@
+
+version: '3'
+services:
+  jupyter-tutorial:
+    #jupyter環境奠基在dockerfile之上,直接由build生出image
+    build: .
+    container_name: jupyter.local
+    ports:
+      - "8888:8888"
+      #設定volumes local端：Remote端
+    volumes:
+      - ./jupyter_mission11/:/home/jovyan/jupyter_mission11/
+    #browse連入jupyter時，無須認證頁面
+    command: start-notebook.sh --NotebookApp.token=''
+
+
+
+  mariaDB-tutorial:
+    image: mariadb
+    
+    #container_name docker 內嵌的DNS Domainname  350-Docker講義 p.104
+    container_name: cc104.rds.local
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mariadb/data:/var/lib/mysql
+    
+    environment:
+      MYSQL_ROOT_PASSWORD: p@ssw0rd
+
+
+
+  dynamoDB:
+    image: amazon/dynamodb-local
+    container_name: cc104.dynamodb.local
+    ports:
+      - "8000:8000"
